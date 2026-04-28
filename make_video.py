@@ -14,7 +14,7 @@ WIDTH, H  = 1080, 1080
 PORT      = 8765
 
 # مدة كل شريحة + الـ fade (ثواني)
-SLIDE_DURS = [4.5, 6, 9, 9, 8, 6, 7]
+SLIDE_DURS = [4.5, 6, 9, 9, 13, 6, 12]
 FADE       = 0.9
 TOTAL      = sum(SLIDE_DURS) + len(SLIDE_DURS) * FADE + 2  # +2 هامش
 
