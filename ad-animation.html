@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>عمارة العطاء — إعلان</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gold:#c9a84c;
+  --dark:#0d1a0e;
+  --green:#2c5530;
+  --slide-dur:6s;
+  --fade-dur:.9s;
+  --n:7; /* number of slides */
+}
+body{width:1080px;height:1080px;overflow:hidden;background:#000;cursor:none}
+
+/* ══════════════════════════════════════
+   SLIDE ENGINE
+══════════════════════════════════════ */
+.slide{
+  position:absolute;inset:0;
+  opacity:0;z-index:0;
+  pointer-events:none;
+}
+.slide.enter { animation: slideEnter var(--fade-dur) forwards; z-index:2; }
+.slide.exit  { animation: slideExit  var(--fade-dur) forwards; z-index:1; }
+.slide.visible{ opacity:1; z-index:1; }
+
+@keyframes slideEnter{ from{opacity:0} to{opacity:1} }
+@keyframes slideExit { from{opacity:1} to{opacity:0} }
+
+/* ══════════════════════════════════════
+   SHARED HELPERS
+══════════════════════════════════════ */
+.gold-line{
+  width:0;height:3px;background:var(--gold);
+  animation:expandLine .8s cubic-bezier(.4,0,.2,1) forwards;
+}
+@keyframes expandLine{to{width:100%}}
+
+.clip-reveal{
+  clip-path:inset(0 100% 0 0);
+  animation:clipReveal .9s cubic-bezier(.4,0,.2,1) forwards;
+}
+@keyframes clipReveal{to{clip-path:inset(0 0% 0 0)}}
+
+.fade-up{
+  opacity:0;transform:translateY(40px);
+  animation:fadeUp .8s cubic-bezier(.4,0,.2,1) forwards;
+}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+
+.fade-in{
+  opacity:0;
+  animation:fadeIn .8s ease forwards;
+}
+@keyframes fadeIn{to{opacity:1}}
+
+/* ══════════════════════════════════════
+   SLIDE 1 — CINEMATIC HERO
+══════════════════════════════════════ */
+#s1{background:#000}
+#s1 .img{
+  position:absolute;inset:0;
+  background:url('building.webp') center 40%/cover no-repeat;
+  filter:brightness(.35);
+  transform:scale(1.12);
+  animation:kenBurns1 7s ease-out forwards;
+}
+@keyframes kenBurns1{to{transform:scale(1) translateY(0)}}
+
+#s1 .vignette{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,.7) 100%);
+}
+#s1 .grad{
+  position:absolute;inset:0;
+  background:linear-gradient(160deg, rgba(44,85,48,.3) 0%, rgba(0,0,0,.6) 100%);
+}
+
+#s1 .content{
+  position:absolute;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  text-align:center;width:900px;
+}
+#s1 .en-sub{
+  font-family:'Cormorant Garamond',serif;
+  font-size:16px;letter-spacing:10px;color:var(--gold);
+  text-transform:uppercase;
+  animation:fadeUp .7s .3s both;
+}
+#s1 h1{
+  font-size:130px;font-weight:700;color:#fff;line-height:.9;
+  margin:20px 0;
+  animation:fadeUp .8s .6s both;
+  text-shadow:0 4px 40px rgba(0,0,0,.5);
+}
+#s1 .divider{
+  width:80px;height:1px;background:var(--gold);
+  margin:24px auto;
+  animation:expandLine .8s 1.1s both;
+}
+#s1 .tagline{
+  font-size:28px;color:rgba(255,255,255,.8);
+  animation:fadeUp .7s 1.3s both;
+}
+#s1 .location{
+  margin-top:36px;display:inline-flex;align-items:center;gap:10px;
+  font-size:18px;color:var(--gold);letter-spacing:3px;
+  animation:fadeIn .8s 1.8s both;
+}
+#s1 .dot{
+  width:8px;height:8px;border-radius:50%;background:var(--gold);
+  animation:pulse 2s 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
+
+/* ══════════════════════════════════════
+   SLIDE 2 — BUILDING SHOWCASE
+══════════════════════════════════════ */
+#s2{background:var(--dark)}
+#s2 .half-img{
+  position:absolute;right:0;top:0;bottom:0;width:55%;
+  background:url('building.webp') center/cover no-repeat;
+  clip-path:polygon(8% 0,100% 0,100% 100%,0 100%);
+  filter:brightness(.65) saturate(1.1);
+  animation:imgReveal .9s .2s both;
+}
+@keyframes imgReveal{
+  from{clip-path:polygon(8% 0,8% 0,8% 100%,0 100%)}
+  to{clip-path:polygon(8% 0,100% 0,100% 100%,0 100%)}
+}
+#s2 .half-overlay{
+  position:absolute;right:0;top:0;bottom:0;width:55%;
+  background:linear-gradient(to right, var(--dark) 0%, transparent 30%);
+}
+#s2 .left{
+  position:absolute;top:0;bottom:0;right:0;width:52%;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:80px 70px 80px 0;
+}
+#s2 .tag-row{
+  display:flex;align-items:center;gap:16px;margin-bottom:28px;
+  animation:fadeUp .6s .4s both;
+}
+#s2 .tag-line{width:40px;height:2px;background:var(--gold)}
+#s2 .tag-text{font-size:14px;letter-spacing:4px;color:var(--gold);text-transform:uppercase}
+#s2 h2{
+  font-size:68px;font-weight:700;color:#fff;line-height:1.1;
+  margin-bottom:32px;
+  animation:fadeUp .7s .6s both;
+}
+#s2 .stats{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.stat-box{
+  border:1px solid rgba(201,168,76,.25);padding:24px;
+  animation:fadeUp .6s both;
+}
+.stat-box:nth-child(1){animation-delay:.8s}
+.stat-box:nth-child(2){animation-delay:.95s}
+.stat-box:nth-child(3){animation-delay:1.1s}
+.stat-box:nth-child(4){animation-delay:1.25s}
+.stat-box .num{font-size:44px;font-weight:700;color:var(--gold);line-height:1}
+.stat-box .lbl{font-size:16px;color:rgba(255,255,255,.6);margin-top:6px}
+
+/* ══════════════════════════════════════
+   SLIDE 3 — APARTMENT PLANS
+══════════════════════════════════════ */
+#s3{background:#f5f4ef}
+#s3 .top{
+  position:absolute;top:0;left:0;right:0;height:6px;
+  background:linear-gradient(90deg,var(--green),var(--gold));
+}
+#s3 .header{
+  position:absolute;top:60px;right:70px;left:70px;
+  display:flex;justify-content:space-between;align-items:flex-end;
+}
+#s3 .h-left{}
+#s3 .tag2{font-size:13px;letter-spacing:4px;color:var(--gold);margin-bottom:10px;animation:fadeUp .6s .2s both}
+#s3 h2{font-size:52px;font-weight:700;color:#1a2c1b;animation:fadeUp .6s .4s both}
+#s3 .h-right{
+  font-size:16px;color:#888;text-align:left;
+  animation:fadeIn .6s .8s both;
+}
+
+#s3 .plans-row{
+  position:absolute;top:220px;left:50px;right:50px;bottom:80px;
+  display:flex;gap:20px;align-items:stretch;
+}
+.plan-card{
+  flex:1;background:#fff;border-radius:3px;overflow:hidden;
+  display:flex;flex-direction:column;
+  box-shadow:0 4px 24px rgba(0,0,0,.08);
+  animation:fadeUp .6s both;
+}
+.plan-card:nth-child(1){animation-delay:.5s}
+.plan-card:nth-child(2){animation-delay:.65s}
+.plan-card:nth-child(3){animation-delay:.8s}
+.plan-card:nth-child(4){animation-delay:.95s}
+.plan-card:nth-child(5){animation-delay:1.1s}
+.plan-img{
+  flex:1;overflow:hidden;
+  background:#f0f0ea;
+}
+.plan-img img{width:100%;height:100%;object-fit:contain;display:block}
+.plan-info{
+  padding:14px 16px;border-top:2px solid var(--green);
+}
+.plan-info .pname{font-size:17px;font-weight:700;color:#1a2c1b}
+.plan-info .parea{font-size:13px;color:#888;margin-top:2px}
+.plan-info .pprice{font-size:15px;color:var(--gold);font-weight:600;margin-top:4px}
+
+/* ══════════════════════════════════════
+   SLIDE 4 — FEATURES
+══════════════════════════════════════ */
+#s4{background:linear-gradient(135deg,#0d1a0e 0%,#1a2c1b 100%)}
+#s4 .content{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:80px;
+}
+#s4 .eyebrow{
+  font-size:13px;letter-spacing:5px;color:var(--gold);
+  text-transform:uppercase;margin-bottom:20px;
+  animation:fadeUp .6s .2s both;
+}
+#s4 h2{
+  font-size:64px;font-weight:700;color:#fff;text-align:center;
+  margin-bottom:60px;line-height:1.2;
+  animation:fadeUp .7s .4s both;
+}
+.feat4-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;width:100%}
+.feat4{
+  border:1px solid rgba(201,168,76,.2);
+  padding:40px 30px;text-align:center;
+  position:relative;overflow:hidden;
+  animation:fadeUp .6s both;
+}
+.feat4::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--gold);transform:scaleX(0);transform-origin:right;
+  animation:scaleIn .6s both;
+}
+.feat4:nth-child(1){animation-delay:.6s} .feat4:nth-child(1)::before{animation-delay:.6s}
+.feat4:nth-child(2){animation-delay:.75s} .feat4:nth-child(2)::before{animation-delay:.75s}
+.feat4:nth-child(3){animation-delay:.9s} .feat4:nth-child(3)::before{animation-delay:.9s}
+.feat4:nth-child(4){animation-delay:1.05s} .feat4:nth-child(4)::before{animation-delay:1.05s}
+.feat4:nth-child(5){animation-delay:1.2s} .feat4:nth-child(5)::before{animation-delay:1.2s}
+.feat4:nth-child(6){animation-delay:1.35s} .feat4:nth-child(6)::before{animation-delay:1.35s}
+@keyframes scaleIn{to{transform:scaleX(1)}}
+.feat4 .ico{width:52px;height:52px;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(201,168,76,.35);border-radius:50%}
+.feat4 .ico svg{width:26px;height:26px;stroke:#c9a84c;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.feat4 h3{font-size:22px;color:#fff;margin-bottom:8px}
+.feat4 p{font-size:15px;color:rgba(255,255,255,.5);line-height:1.6}
+
+/* ══════════════════════════════════════
+   SLIDE 5 — PRICING
+══════════════════════════════════════ */
+#s5{background:#fff}
+#s5 .bg-accent{
+  position:absolute;left:0;top:0;bottom:0;width:42%;
+  background:var(--dark);
+}
+#s5 .content{
+  position:absolute;inset:0;display:flex;
+}
+#s5 .left5{
+  width:58%;padding:90px 70px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+#s5 .right5{
+  width:42%;padding:90px 60px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+/* left5 = 58% → يظهر على اليمين (خلفية بيضاء في RTL) */
+#s5 .tag5{
+  font-size:13px;letter-spacing:4px;color:var(--gold);
+  margin-bottom:16px;animation:fadeUp .6s .2s both;
+}
+#s5 h2{
+  font-size:62px;font-weight:700;color:#1a2c1b;
+  line-height:1.1;margin-bottom:40px;
+  animation:fadeUp .7s .4s both;
+}
+.price-row{
+  margin-bottom:28px;padding-bottom:28px;
+  border-bottom:1px solid #e8e8e0;
+  animation:fadeUp .6s both;
+}
+.price-row:last-child{border:none;margin:0;padding:0}
+.price-row:nth-child(1){animation-delay:.6s}
+.price-row:nth-child(2){animation-delay:.8s}
+.price-row:nth-child(3){animation-delay:1.0s}
+.price-row .pr-type{font-size:16px;color:#999;margin-bottom:8px}
+.price-row .pr-val{font-size:48px;font-weight:700;color:#1a2c1b;line-height:1}
+.price-row .pr-unit{font-size:16px;color:var(--gold);margin-top:4px}
+
+/* right5 = 42% → يظهر على اليسار (خلفية داكنة bg-accent) */
+#s5 .right5 .r-label{
+  font-size:13px;letter-spacing:4px;color:rgba(255,255,255,.35);
+  margin-bottom:30px;animation:fadeUp .6s .5s both;
+}
+.pay-opt{
+  margin-bottom:24px;animation:fadeUp .6s both;
+}
+.pay-opt:nth-child(2){animation-delay:.7s}
+.pay-opt:nth-child(3){animation-delay:.9s}
+.pay-opt:nth-child(4){animation-delay:1.1s}
+.pay-opt .po-title{font-size:20px;color:#fff;margin-bottom:4px;font-weight:600;display:flex;align-items:center;gap:12px}
+.pay-opt .po-title svg{width:22px;height:22px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.pay-opt .po-desc{font-size:14px;color:rgba(255,255,255,.45)}
+
+/* ══════════════════════════════════════
+   SLIDE 6 — LOCATION
+══════════════════════════════════════ */
+#s6{background:#0d1a0e}
+#s6 .map-bg{
+  position:absolute;inset:0;
+  background:url('building.webp') center/cover no-repeat;
+  filter:brightness(.2) saturate(0);
+  transform:scale(1.05);
+  animation:kenBurns2 7s ease-out forwards;
+}
+@keyframes kenBurns2{to{transform:scale(1) translate(2%,-1%)}}
+#s6 .overlay6{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 50%, rgba(44,85,48,.5) 0%, rgba(0,0,0,.9) 70%);
+}
+#s6 .content6{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:80px;
+}
+#s6 .pin{width:80px;height:80px;border-radius:50%;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);display:flex;align-items:center;justify-content:center;margin:0 auto;animation:bounceIn .8s .3s both}
+#s6 .pin svg{width:36px;height:36px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round}
+@keyframes bounceIn{
+  0%{transform:translateY(-30px);opacity:0}
+  60%{transform:translateY(8px)}
+  100%{transform:translateY(0);opacity:1}
+}
+#s6 h2{
+  font-size:72px;font-weight:700;color:#fff;margin:24px 0 16px;
+  animation:fadeUp .7s .6s both;
+}
+#s6 .addr{
+  font-size:26px;color:var(--gold);margin-bottom:50px;
+  animation:fadeUp .6s .9s both;
+}
+#s6 .loc-features{
+  display:flex;gap:50px;margin-bottom:60px;
+  animation:fadeUp .6s 1.1s both;
+}
+.lf-item{text-align:center}
+.lf-item .lf-ico{width:56px;height:56px;border-radius:50%;border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.lf-item .lf-ico svg{width:26px;height:26px;stroke:rgba(255,255,255,.8);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.lf-item .lf-txt{font-size:16px;color:rgba(255,255,255,.7)}
+
+/* ══════════════════════════════════════
+   SLIDE 7 — CONTACT CTA
+══════════════════════════════════════ */
+#s7{background:#fff}
+#s7 .side-green{
+  position:absolute;right:0;top:0;bottom:0;width:50%;
+  background:var(--green);
+  clip-path:polygon(15% 0,100% 0,100% 100%,0 100%);
+  animation:sideReveal .8s .1s both;
+}
+@keyframes sideReveal{
+  from{clip-path:polygon(100% 0,100% 0,100% 100%,100% 100%)}
+  to{clip-path:polygon(15% 0,100% 0,100% 100%,0 100%)}
+}
+#s7 .side-img{
+  position:absolute;right:0;top:0;bottom:0;width:50%;
+  background:url('building.webp') center/cover no-repeat;
+  opacity:.15;
+  clip-path:polygon(15% 0,100% 0,100% 100%,0 100%);
+  animation:sideReveal .8s .1s both;
+}
+#s7 .left7{
+  position:absolute;right:50%;top:0;bottom:0;left:0;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:80px 70px;
+}
+#s7 .logo7{
+  display:flex;align-items:center;gap:14px;margin-bottom:50px;
+  animation:fadeUp .6s .3s both;
+}
+#s7 .logo7 img{height:52px;mix-blend-mode:multiply}
+#s7 .logo7 span{font-size:26px;font-weight:700;color:#1a2c1b}
+#s7 h2{
+  font-size:56px;font-weight:700;color:#1a2c1b;
+  line-height:1.2;margin-bottom:12px;
+  animation:fadeUp .7s .5s both;
+}
+#s7 .sub7{
+  font-size:18px;color:#888;margin-bottom:48px;
+  animation:fadeUp .6s .7s both;
+}
+.cta-item{
+  display:flex;align-items:center;gap:16px;
+  margin-bottom:22px;animation:fadeUp .6s both;
+}
+.cta-item:nth-child(1){animation-delay:.9s}
+.cta-item:nth-child(2){animation-delay:1.05s}
+.cta-item:nth-child(3){animation-delay:1.2s}
+.cta-icon{
+  width:50px;height:50px;background:var(--green);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.cta-icon svg{width:22px;height:22px;fill:#fff}
+.cta-item .ci-text .ci-label{font-size:13px;color:#aaa}
+.cta-item .ci-text .ci-val{font-size:20px;font-weight:700;color:#1a2c1b}
+
+#s7 .right7{
+  position:absolute;left:0;right:50%;top:0;bottom:0;
+  /* invisible — right side is CSS only */
+}
+#s7 .floating-url{
+  position:absolute;left:70px;bottom:80px;
+  font-size:14px;color:var(--gold);letter-spacing:3px;
+  animation:fadeIn .8s 1.5s both;
+}
+
+/* ══════════════════════════════════════
+   PROGRESS BAR
+══════════════════════════════════════ */
+#prog{
+  position:fixed;bottom:0;left:0;right:0;height:4px;
+  background:rgba(255,255,255,.1);z-index:99;
+}
+#prog-bar{height:100%;background:var(--gold);width:0}
+
+/* SLIDE DOTS */
+#dots{
+  position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
+  display:flex;gap:8px;z-index:99;
+}
+.dot-item{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(255,255,255,.3);transition:all .3s;
+}
+.dot-item.on{background:var(--gold);width:20px;border-radius:3px}
+</style>
+</head>
+<body>
+
+<!-- ═══ SLIDE 1: HERO ═══ -->
+<div class="slide visible" id="s1">
+  <div class="img"></div>
+  <div class="vignette"></div>
+  <div class="grad"></div>
+  <div class="content">
+    <div class="en-sub">Nablus · Palestine · 2026</div>
+    <h1>عمارة<br>العطاء</h1>
+    <div class="divider"></div>
+    <div class="tagline">شقق فاخرة ومحلات تجارية للبيع</div>
+    <div class="location">
+      <div class="dot"></div>
+      رفيديا · شارع تونس · نابلس
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 2: BUILDING STATS ═══ -->
+<div class="slide" id="s2">
+  <div class="half-img"></div>
+  <div class="half-overlay"></div>
+  <div class="left">
+    <div class="tag-row">
+      <div class="tag-line"></div>
+      <div class="tag-text">نظرة عامة</div>
+    </div>
+    <h2>عمارة<br>تستحق<br>الاستثمار</h2>
+    <div class="stats">
+      <div class="stat-box"><div class="num">8</div><div class="lbl">طوابق سكنية</div></div>
+      <div class="stat-box"><div class="num">5</div><div class="lbl">شقق متاحة</div></div>
+      <div class="stat-box"><div class="num">166</div><div class="lbl">أكبر مساحة م²</div></div>
+      <div class="stat-box"><div class="num">3</div><div class="lbl">محلات تجارية</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 3: FLOOR PLANS ═══ -->
+<div class="slide" id="s3">
+  <div class="top"></div>
+  <div class="header">
+    <div class="h-left">
+      <div class="tag2">المخططات المعمارية</div>
+      <h2>اختر شقتك المثالية</h2>
+    </div>
+    <div class="h-right">تصاميم عصرية<br>مساحات مدروسة</div>
+  </div>
+  <div class="plans-row">
+    <div class="plan-card">
+      <div class="plan-img"><img src="APP1.webp" alt="شقة 1"></div>
+      <div class="plan-info">
+        <div class="pname">شقة A</div>
+        <div class="parea">142.10 م²</div>
+        <div class="pprice">من 56,840 دينار</div>
+      </div>
+    </div>
+    <div class="plan-card">
+      <div class="plan-img"><img src="APP2.webp" alt="شقة 2"></div>
+      <div class="plan-info">
+        <div class="pname">شقة B</div>
+        <div class="parea">152.75 م²</div>
+        <div class="pprice">من 61,100 دينار</div>
+      </div>
+    </div>
+    <div class="plan-card">
+      <div class="plan-img"><img src="APP3.webp" alt="شقة 3"></div>
+      <div class="plan-info">
+        <div class="pname">شقة C</div>
+        <div class="parea">158.50 م²</div>
+        <div class="pprice">من 63,400 دينار</div>
+      </div>
+    </div>
+    <div class="plan-card">
+      <div class="plan-img"><img src="APP4.webp" alt="شقة 4"></div>
+      <div class="plan-info">
+        <div class="pname">شقة D</div>
+        <div class="parea">160.20 م²</div>
+        <div class="pprice">من 64,080 دينار</div>
+      </div>
+    </div>
+    <div class="plan-card">
+      <div class="plan-img"><img src="APP5.webp" alt="شقة 5"></div>
+      <div class="plan-info">
+        <div class="pname">شقة E</div>
+        <div class="parea">166.00 م²</div>
+        <div class="pprice">من 66,400 دينار</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 4: FEATURES ═══ -->
+<div class="slide" id="s4">
+  <div class="content">
+    <div class="eyebrow">لماذا عمارة العطاء</div>
+    <h2>كل ما تحتاجه<br>في مكان واحد</h2>
+    <div class="feat4-grid">
+      <div class="feat4"><div class="ico"><svg viewBox="0 0 24 24"><path d="M2 20h20M4 20V10l8-7 8 7v10"/><path d="M10 20v-6h4v6"/></svg></div><h3>بناء عالي الجودة</h3><p>مواد بناء ممتازة ومواصفات أوروبية</p></div>
+      <div class="feat4"><div class="ico"><svg viewBox="0 0 24 24"><path d="M21 3L3 21M3 3h6v6L3 3zM15 15h6v6l-6-6z"/></svg></div><h3>تصميم عصري</h3><p>مخططات مدروسة تستغل كل متر</p></div>
+      <div class="feat4"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><h3>سعر تنافسي</h3><p>أفضل الأسعار في المنطقة</p></div>
+      <div class="feat4"><div class="ico"><svg viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 11-7.778 7.778 5.5 5.5 0 017.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg></div><h3>دفع مرن</h3><p>نقداً أو بالتقسيط حسب الاتفاق</p></div>
+      <div class="feat4"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 22s-8-7.5-8-12a8 8 0 0116 0c0 4.5-8 12-8 12z"/><circle cx="12" cy="10" r="3"/></svg></div><h3>موقع مميز</h3><p>قلب رفيديا، خدمات وطرق رئيسية</p></div>
+      <div class="feat4"><div class="ico"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><rect x="9" y="14" width="6" height="8"/></svg></div><h3>طابق تجاري</h3><p>محلات استثمارية بعائد مضمون</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 5: PRICING ═══ -->
+<div class="slide" id="s5">
+  <div class="bg-accent"></div>
+  <div class="content">
+    <div class="left5">
+      <div class="tag5">الأسعار</div>
+      <h2>استثمار يستحق<br>القرار</h2>
+      <div class="price-row">
+        <div class="pr-type">الشقق السكنية — نقداً</div>
+        <div class="pr-val">56,840</div>
+        <div class="pr-unit">دينار أردني · يبدأ من</div>
+      </div>
+      <div class="price-row">
+        <div class="pr-type">المحلات التجارية — نقداً</div>
+        <div class="pr-val">46,960</div>
+        <div class="pr-unit">دينار أردني · يبدأ من</div>
+      </div>
+      <div class="price-row">
+        <div class="pr-type">سعر المتر التجاري</div>
+        <div class="pr-val">2,000</div>
+        <div class="pr-unit">دينار أردني / م²</div>
+      </div>
+    </div>
+    <div class="right5">
+      <div class="r-label">خيارات الدفع</div>
+      <div class="pay-opt"><div class="po-title"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>دفع نقدي</div><div class="po-desc">أسعار حصرية للدفع الفوري</div></div>
+      <div class="pay-opt"><div class="po-title"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>تقسيط مريح</div><div class="po-desc">خطط مرنة حسب الاتفاق</div></div>
+      <div class="pay-opt"><div class="po-title"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>تفاوض مباشر</div><div class="po-desc">تواصل معنا للحصول على أفضل سعر</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 6: LOCATION ═══ -->
+<div class="slide" id="s6">
+  <div class="map-bg"></div>
+  <div class="overlay6"></div>
+  <div class="content6">
+    <div class="pin"><svg viewBox="0 0 24 24"><path d="M12 22s-8-7.5-8-12a8 8 0 0116 0c0 4.5-8 12-8 12z"/><circle cx="12" cy="10" r="3"/></svg></div>
+    <h2>الموقع</h2>
+    <div class="addr">رفيديا · شارع تونس · نابلس · فلسطين</div>
+    <div class="loc-features">
+      <div class="lf-item"><div class="lf-ico"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><div class="lf-txt">قريب من المدارس</div></div>
+      <div class="lf-item"><div class="lf-ico"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div class="lf-txt">قريب من المستشفيات</div></div>
+      <div class="lf-item"><div class="lf-ico"><svg viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11a2 2 0 012 2v3M13 17v2a2 2 0 002 2h6a2 2 0 002-2v-7a2 2 0 00-2-2h-6a2 2 0 00-2 2v2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></div><div class="lf-txt">طرق رئيسية</div></div>
+      <div class="lf-item"><div class="lf-ico"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18"/><path d="M16 10a4 4 0 01-8 0"/></svg></div><div class="lf-txt">خدمات متكاملة</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 7: CONTACT ═══ -->
+<div class="slide" id="s7">
+  <div class="side-green"></div>
+  <div class="side-img"></div>
+  <div class="left7">
+    <div class="logo7">
+      <img src="logo.webp" alt="شعار عمارة العطاء">
+      <span>عمارة العطاء</span>
+    </div>
+    <h2>تواصل معنا<br>اليوم</h2>
+    <div class="sub7">لا تفوّت الفرصة — وحدات محدودة</div>
+    <div class="cta-item">
+      <div class="cta-icon">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
+      </div>
+      <div class="ci-text">
+        <div class="ci-label">واتساب وهاتف</div>
+        <div class="ci-val">0595-373-660</div>
+      </div>
+    </div>
+    <div class="cta-item">
+      <div class="cta-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+      </div>
+      <div class="ci-text">
+        <div class="ci-label">الموقع الإلكتروني</div>
+        <div class="ci-val">al-ataa.vercel.app</div>
+      </div>
+    </div>
+    <div class="cta-item">
+      <div class="cta-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      </div>
+      <div class="ci-text">
+        <div class="ci-label">العنوان</div>
+        <div class="ci-val">رفيديا · شارع تونس · نابلس</div>
+      </div>
+    </div>
+    <div class="floating-url">AL-ATAA.VERCEL.APP</div>
+  </div>
+</div>
+
+<!-- PROGRESS & DOTS -->
+<div id="prog"><div id="prog-bar"></div></div>
+<div id="dots"></div>
+
+<script>
+const SLIDES   = document.querySelectorAll('.slide');
+const N        = SLIDES.length;
+const FADE     = 900; // ms crossfade
+
+// مدة كل شريحة بالميلي ثانية
+const DURS = [
+  4500,  // 1 — Hero: بسيطة، اسم وموقع
+  6000,  // 2 — إحصائيات البناء
+  9000,  // 3 — المخططات: 5 كروت للقراءة
+  9000,  // 4 — المميزات: 6 كروت
+  8000,  // 5 — الأسعار: أرقام تحتاج وقت
+  6000,  // 6 — الموقع
+  7000,  // 7 — التواصل
+];
+const bar      = document.getElementById('prog-bar');
+const dotsEl   = document.getElementById('dots');
+
+// Build dots
+SLIDES.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'dot-item' + (i===0?' on':'');
+  dotsEl.appendChild(d);
+});
+const dots = document.querySelectorAll('.dot-item');
+
+let cur       = 0;
+let startTs   = null;
+let animating = false;
+
+function go(next) {
+  if (animating) return;
+  animating = true;
+  const prev = cur;
+  cur = next % N;
+
+  // Fade out prev
+  SLIDES[prev].classList.remove('visible');
+  SLIDES[prev].classList.add('exit');
+
+  // Reset animations on next slide by clone trick
+  const el = SLIDES[cur];
+  el.classList.add('enter');
+
+  // Force animation restart on children
+  el.querySelectorAll('[style*="animation"],[class*="fade"],[class*="clip"],[class*="stat-box"],[class*="feat"],[class*="plan"],[class*="price-row"],[class*="pay-opt"],[class*="cta-item"],[class*="pcard"],[class*="lf-"],[class*="loc-"],[class*="tag"]').forEach(c=>{
+    c.style.animation='none';
+    c.offsetHeight; // reflow
+    c.style.animation='';
+  });
+
+  dots.forEach((d,i)=>d.classList.toggle('on',i===cur));
+
+  setTimeout(()=>{
+    SLIDES[prev].classList.remove('exit');
+    el.classList.remove('enter');
+    el.classList.add('visible');
+    animating = false;
+  }, FADE);
+
+  startTs = null;
+}
+
+// Progress tick
+function tick(ts) {
+  if (!startTs) startTs = ts;
+  const dur = DURS[cur];
+  const el  = ts - startTs;
+  const pct = Math.min((el / dur) * 100, 100);
+  bar.style.width = pct + '%';
+  bar.style.transition = 'none';
+  if (el >= dur) go(cur + 1);
+  requestAnimationFrame(tick);
+}
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if ([' ','ArrowLeft','ArrowDown'].includes(e.key)) { e.preventDefault(); go(cur+1); }
+  if (['ArrowRight','ArrowUp'].includes(e.key)) { e.preventDefault(); go(cur===0?N-1:cur-1); }
+});
+
+// Click
+document.addEventListener('click', () => go(cur + 1));
+
+requestAnimationFrame(tick);
+</script>
+</body>
+</html>
