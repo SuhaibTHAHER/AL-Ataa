@@ -441,6 +441,23 @@ body{width:1080px;height:1080px;overflow:hidden;background:#000;cursor:none}
   background:rgba(255,255,255,.3);transition:all .3s;
 }
 .dot-item.on{background:var(--gold);width:20px;border-radius:3px}
+
+/* ── زر التسجيل ── */
+#rec-btn{
+  position:fixed;top:20px;left:20px;z-index:999;
+  padding:10px 22px;border:none;border-radius:4px;
+  background:var(--gold);color:#fff;
+  font-family:'Noto Naskh Arabic',serif;font-size:15px;
+  cursor:pointer;display:flex;align-items:center;gap:8px;
+  box-shadow:0 4px 20px rgba(0,0,0,.4);transition:opacity .3s;
+}
+#rec-btn:disabled{opacity:.5;cursor:not-allowed}
+#rec-btn .dot-r{
+  width:10px;height:10px;border-radius:50%;background:#fff;
+  animation:recPulse 1s infinite;display:none;
+}
+#rec-btn.recording .dot-r{display:block}
+@keyframes recPulse{0%,100%{opacity:1}50%{opacity:.3}}
 </style>
 </head>
 <body>
@@ -645,6 +662,10 @@ body{width:1080px;height:1080px;overflow:hidden;background:#000;cursor:none}
 <!-- PROGRESS & DOTS -->
 <div id="prog"><div id="prog-bar"></div></div>
 <div id="dots"></div>
+<button id="rec-btn" onclick="startRecording()">
+  <div class="dot-r"></div>
+  <span id="rec-label">تسجيل الفيديو</span>
+</button>
 
 <script>
 const SLIDES   = document.querySelectorAll('.slide');
@@ -727,10 +748,74 @@ document.addEventListener('keydown', e => {
   if (['ArrowRight','ArrowUp'].includes(e.key)) { e.preventDefault(); go(cur===0?N-1:cur-1); }
 });
 
-// Click
-document.addEventListener('click', () => go(cur + 1));
+// Click — تجاهل إذا كان على زر التسجيل
+document.addEventListener('click', e => {
+  if (e.target.closest('#rec-btn')) return;
+  go(cur + 1);
+});
 
 requestAnimationFrame(tick);
+
+// ── تسجيل الفيديو ────────────────────────────────────
+async function startRecording() {
+  const btn   = document.getElementById('rec-btn');
+  const label = document.getElementById('rec-label');
+  const totalMs = (DURS.reduce((a,b)=>a+b,0) + DURS.length * FADE + 1) * 1000;
+
+  // اطلب مشاركة التاب الحالي
+  let stream;
+  try {
+    stream = await navigator.mediaDevices.getDisplayMedia({
+      video: { frameRate: 30, cursor: 'never' },
+      audio: false,
+      preferCurrentTab: true   // Chrome 107+ يفتح التاب الحالي مباشرة
+    });
+  } catch(e) {
+    label.textContent = 'تسجيل الفيديو';
+    return;
+  }
+
+  // اذهب للشريحة الأولى
+  cur = 0; showSlide(0); startTs = null;
+  btn.disabled = true;
+  btn.classList.add('recording');
+
+  const mime   = MediaRecorder.isTypeSupported('video/webm;codecs=vp9')
+                 ? 'video/webm;codecs=vp9' : 'video/webm';
+  const rec    = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 12_000_000 });
+  const chunks = [];
+
+  rec.ondataavailable = e => e.data.size && chunks.push(e.data);
+  rec.onstop = () => {
+    stream.getTracks().forEach(t => t.stop());
+    const blob = new Blob(chunks, { type: mime });
+    const a    = document.createElement('a');
+    a.href     = URL.createObjectURL(blob);
+    a.download = 'al-ataa-ad.webm';
+    a.click();
+    btn.disabled = false;
+    btn.classList.remove('recording');
+    label.textContent = '✓ تم التحميل!';
+    setTimeout(() => label.textContent = 'تسجيل الفيديو', 3000);
+  };
+
+  rec.start(200);
+
+  // عدّاد تنازلي
+  let remaining = Math.ceil(totalMs / 1000);
+  const timer = setInterval(() => {
+    label.textContent = `${remaining--}s ●`;
+    if (remaining < 0) clearInterval(timer);
+  }, 1000);
+
+  setTimeout(() => rec.stop(), totalMs);
+}
+
+function showSlide(i) {
+  SLIDES.forEach(s => s.classList.remove('active','visible','enter','exit'));
+  SLIDES[i].classList.add('visible');
+  dots.forEach((d,j) => d.classList.toggle('on', j===i));
+}
 </script>
 </body>
 </html>
