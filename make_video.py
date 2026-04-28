@@ -46,10 +46,23 @@ async def record():
         )
         page = ctx.pages[0] if ctx.pages else await ctx.new_page()
 
+        # حقن CSS قبل تحميل الصفحة (يؤثر من أول إطار)
+        await page.add_init_script("""
+            const s = document.createElement('style');
+            s.textContent = `
+                #rec-btn { display:none !important; }
+                body, * {
+                    font-family: 'Noto Naskh Arabic','Arabic Typesetting',
+                                 'Traditional Arabic', serif !important;
+                }
+            `;
+            document.addEventListener('DOMContentLoaded', () => document.head.appendChild(s));
+        """)
+
         print("  جاري تحميل الصفحة...")
         await page.goto(f"http://127.0.0.1:{PORT}/ad-animation.html")
         await page.wait_for_load_state("networkidle")
-        await asyncio.sleep(2)  # انتظر الخطوط + الصور
+        await asyncio.sleep(3)  # انتظر الخطوط + الصور
 
         print(f"  التسجيل ({TOTAL:.0f}s)...")
         # شغّل الشرائح تلقائياً — كل شريحة بمدتها
